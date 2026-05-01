@@ -3,7 +3,7 @@ const CACHE_NAME = 'sankalp-v1';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
-  '/manifest.webmanifest',
+  '/manifest.json',
   '/icon-512.png'
 ];
 
