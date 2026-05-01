@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Oswald:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-oswald: "Oswald", sans-serif;
+  --color-gym-yellow: #fbc02d;
+  --color-bg-black: #0A0A0A;
+}
+
+@layer base {
+  body {
+    @apply bg-black text-white antialiased min-h-screen m-0 p-0 overflow-x-hidden;
+  }
+  html {
+    @apply scroll-smooth;
+  }
+}
+
+/* Mobile Frame for Desktop */
+.mobile-frame {
+  @apply max-w-[440px] mx-auto min-h-screen bg-bg-black relative shadow-[0_0_80px_rgba(0,0,0,0.5)] flex flex-col;
+}
+
+@media (max-width: 440px) {
+  .mobile-frame {
+    @apply max-w-full shadow-none;
+  }
+}
+
+/* Base typography refinements */
+@layer base {
+  html {
+    @apply text-[15px]; /* Balanced base font for mobile-app feel */
+  }
+}
+
+/* Custom Scrollbar for the mobile feel */
+::-webkit-scrollbar {
+  @apply w-[2px];
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gym-yellow/10 rounded-full;
+}
+
+.safe-area-top {
+  @apply h-8 bg-bg-black;
+}

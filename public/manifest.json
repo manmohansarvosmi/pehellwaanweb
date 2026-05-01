@@ -1,0 +1,27 @@
+{
+  "name": "PAHELLWAAN Gym Management",
+  "short_name": "PAHELLWAAN",
+  "id": "/",
+  "description": "Premium Gym Management Terminal by Pehellwaan",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0A0A0A",
+  "theme_color": "#FBC02D",
+  "categories": ["fitness", "business"],
+  "icons": [
+    {
+      "src": "logo.jpeg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "logo.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "maskable"
+    }
+  ]
+}
