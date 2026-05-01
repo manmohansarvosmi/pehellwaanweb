@@ -1,4 +1,7 @@
-const BASE_URL = '/api';
+const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+const BASE_URL = isLocal 
+    ? '/api' 
+    : 'https://pahellwaanbackend.helixioninnovations.com/api';
 
 /** AUTH UTILS **/
 export const getToken = () => localStorage.getItem('userToken');
