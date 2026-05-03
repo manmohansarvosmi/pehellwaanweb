@@ -1,4 +1,4 @@
-const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+const isLocal = import.meta.env.DEV;
 const BASE_URL = isLocal 
     ? '/api' 
     : 'https://pahellwaanbackend.helixioninnovations.com/api';
@@ -22,8 +22,17 @@ async function apiRequest(endpoint: string, options: RequestInit = {}) {
         headers['Authorization'] = `Bearer ${token}`;
     }
 
+    // Ensure endpoint starts with / and BASE_URL doesn't end with / to avoid double slashes
+    const cleanEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+    const cleanBaseUrl = BASE_URL.endsWith('/') ? BASE_URL.slice(0, -1) : BASE_URL;
+    const fullUrl = `${cleanBaseUrl}${cleanEndpoint}`;
+
+    if (!isLocal) {
+        console.log(`API Request: ${fullUrl}`);
+    }
+
     try {
-        const response = await fetch(`${BASE_URL}${endpoint}`, {
+        const response = await fetch(fullUrl, {
             ...options,
             headers,
         });
@@ -31,15 +40,13 @@ async function apiRequest(endpoint: string, options: RequestInit = {}) {
         const data = await response.json();
 
         if (response.status === 401 || response.status === 403) {
-            // Handle unauthorized/forbidden
             console.warn('Auth error:', response.status);
-            // Optional: logout();
         }
 
         if (response.ok) {
             return { success: true, data: data.data !== undefined ? data.data : data };
         } else {
-            return { success: false, message: data.message || data.massage || 'Request failed' };
+            return { success: false, message: data.message || data.error || 'Request failed' };
         }
     } catch (error) {
         console.error(`API Error (${endpoint}):`, error);
@@ -49,8 +56,11 @@ async function apiRequest(endpoint: string, options: RequestInit = {}) {
 
 /** AUTH API **/
 export const login = async (username, password) => {
+    const cleanBaseUrl = BASE_URL.endsWith('/') ? BASE_URL.slice(0, -1) : BASE_URL;
+    const loginUrl = `${cleanBaseUrl}/auth/login`;
+
     try {
-        const response = await fetch(`${BASE_URL}/auth/login`, {
+        const response = await fetch(loginUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -74,7 +84,7 @@ export const login = async (username, password) => {
                 return { success: false, message: 'Invalid server response: No token' };
             }
         } else {
-            return { success: false, message: data.message || data.massage || 'Login failed' };
+            return { success: false, message: data.message || data.error || 'Login failed' };
         }
     } catch (error) {
         console.error('Login error:', error);
