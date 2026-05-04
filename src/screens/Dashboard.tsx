@@ -47,200 +47,169 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
   }, []);
 
   return (
-    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
+    <div className="space-y-5 animate-in fade-in slide-in-from-bottom-4 duration-700">
       
       {/* Hero Card - Compact */}
-      <div className="bg-gym-yellow rounded-[20px] p-4 relative overflow-hidden shadow-lg">
+      <div className="bg-gym-yellow rounded-xl p-4 relative overflow-hidden">
         <div className="relative z-10">
           <div className="flex justify-between items-start">
-            <span className="text-[10px] font-black text-black/60 uppercase tracking-[0.15em]">ACTIVE MEMBERS</span>
-            <Users className="w-5 h-5 text-black/40" />
+            <span className="text-[10px] font-black text-black/60 uppercase tracking-[0.1em]">ACTIVE ATHLETES</span>
+            <Users className="w-4 h-4 text-black/40" />
           </div>
-          <div className="flex items-baseline gap-2 mt-1.5">
-            <h2 className="text-5xl font-black text-black leading-none">{summary?.activeMembers || '0'}</h2>
-            <div className="bg-black/10 px-2 py-1 rounded-md flex items-center gap-1">
-              <Users className="w-3 h-3 text-black" />
+          <div className="flex items-baseline gap-2 mt-1">
+            <h2 className="text-4xl font-black text-black leading-none">{summary?.activeMembers || '0'}</h2>
+            <div className="bg-black/10 px-2 py-0.5 rounded flex items-center gap-1">
               <span className="text-[10px] font-black text-black">/ {summary?.totalMembers || '0'}</span>
             </div>
           </div>
-          <div className="flex items-center gap-2.5 mt-4">
-            <div className="flex -space-x-2">
+          <div className="flex items-center gap-2 mt-3">
+            <div className="flex -space-x-1.5">
               {[1, 2, 3].map((i) => (
                 <img 
                   key={i}
                   src={`https://randomuser.me/api/portraits/${i % 2 === 0 ? 'women' : 'men'}/${i + 10}.jpg`} 
-                  className="w-7 h-7 rounded-full border-2 border-gym-yellow"
+                  className="w-6 h-6 rounded-full border border-gym-yellow"
                   alt="Avatar"
                 />
               ))}
-              <div className="w-7 h-7 rounded-full bg-black border-2 border-gym-yellow flex items-center justify-center">
-                <span className="text-[8px] font-bold text-white">+{summary?.totalMembers > 3 ? summary.totalMembers - 3 : 0}</span>
-              </div>
             </div>
-            <span className="text-[9px] font-bold text-black/60 uppercase tracking-wider">Active right now</span>
+            <span className="text-[9px] font-bold text-black/60 uppercase tracking-widest">Active now</span>
           </div>
         </div>
-        <Dumbbell className="absolute -right-3 -bottom-3 w-24 h-24 text-black/5 rotate-[15deg]" />
+        <Dumbbell className="absolute -right-2 -bottom-2 w-20 h-20 text-black/5 rotate-[15deg]" />
       </div>
 
       {/* Alert Cards Row */}
-      <div className="grid grid-cols-2 gap-2.5">
-        <div className="bg-gym-yellow/5 border border-gym-yellow/20 rounded-[18px] p-3.5 flex flex-col justify-between h-[100px]">
+      <div className="grid grid-cols-2 gap-2">
+        <div className="bg-gym-yellow/5 border border-gym-yellow/20 rounded-xl p-3 flex flex-col justify-between h-[85px]">
           <div className="flex justify-between items-start">
-            <div className="p-1.5 bg-gym-yellow/10 rounded-lg">
-              <CalendarOff className="w-4 h-4 text-gym-yellow" />
-            </div>
-            <span className="text-lg font-black text-gym-yellow">{expiringSoon.length}</span>
+            <CalendarOff className="w-3.5 h-3.5 text-gym-yellow" />
+            <span className="text-base font-black text-gym-yellow">{expiringSoon.length}</span>
           </div>
           <div>
-            <h3 className="text-[10px] font-black text-white uppercase tracking-widest leading-none">EXPIRING PLANS</h3>
-            <p className="text-[8px] font-bold text-gray-500 uppercase mt-1">Next 7 Days</p>
+            <h3 className="text-[10px] font-black text-white uppercase tracking-widest leading-none">EXPIRING</h3>
+            <p className="text-[8px] font-bold text-gray-600 uppercase mt-1">7 Days</p>
           </div>
         </div>
 
-        <div className="bg-red-500/5 border border-red-500/20 rounded-[18px] p-3.5 flex flex-col justify-between h-[100px]">
+        <div className="bg-orange-500/5 border border-orange-500/20 rounded-xl p-3 flex flex-col justify-between h-[85px]">
           <div className="flex justify-between items-start">
-            <div className="p-1.5 bg-red-500/10 rounded-lg">
-              <Clock className="w-4 h-4 text-red-500" />
-            </div>
-            <span className="text-lg font-black text-red-500">{pendingPayments.length}</span>
+            <Clock className="w-3.5 h-3.5 text-orange-500" />
+            <span className="text-base font-black text-orange-500">{pendingPayments.length}</span>
           </div>
           <div>
-            <h3 className="text-[10px] font-black text-white uppercase tracking-widest leading-none">DUE PAYMENTS</h3>
-            <p className="text-[8px] font-bold text-gray-500 uppercase mt-1">Next 5 Days</p>
+            <h3 className="text-[10px] font-black text-white uppercase tracking-widest leading-none">DUE</h3>
+            <p className="text-[8px] font-bold text-gray-600 uppercase mt-1">Pending</p>
           </div>
         </div>
       </div>
 
       {/* Quick Actions Grid */}
-      <div className="space-y-3">
-        <h3 className="text-[10px] font-black text-white uppercase tracking-[0.15em] opacity-50">QUICK ACTIONS</h3>
-        <div className="grid grid-cols-2 gap-2.5">
-          {[
-            { id: 'payroll', label: 'Payroll', icon: Wallet, color: 'bg-gym-yellow/15 text-gym-yellow' },
-            { id: 'finance', label: 'Finance', icon: Banknote, color: 'bg-emerald-500/15 text-emerald-500' },
-            { id: 'packages', label: 'Packages', icon: Package, color: 'bg-blue-500/15 text-blue-500' },
-            { id: 'add-expense', label: 'Add Expense', icon: FilePlus, color: 'bg-red-500/15 text-red-500' },
-          ].map((action) => (
-            <button 
-              key={action.id}
-              onClick={() => onNavigate?.(action.id)}
-              className="bg-[#121212] border border-white/5 rounded-2xl p-5 flex flex-col items-center gap-3 active:scale-95 transition-transform"
-            >
-              <div className={`p-3 rounded-full ${action.color}`}>
-                <action.icon className="w-6 h-6" />
-              </div>
-              <span className="text-[14px] font-bold text-gray-200">{action.label}</span>
-            </button>
-          ))}
-        </div>
+      <div className="grid grid-cols-4 gap-2">
+        {[
+          { id: 'members', label: 'Members', icon: Users, color: 'bg-blue-500/10 text-blue-400' },
+          { id: 'finance', label: 'Finance', icon: Banknote, color: 'bg-emerald-500/10 text-emerald-400' },
+          { id: 'packages', label: 'Plans', icon: Package, color: 'bg-gym-yellow/10 text-gym-yellow' },
+          { id: 'add-member', label: 'Add', icon: FilePlus, color: 'bg-red-500/10 text-red-400' },
+        ].map((action) => (
+          <button 
+            key={action.id}
+            onClick={() => onNavigate?.(action.id)}
+            className="bg-[#121212] border border-white/5 rounded-xl p-3 flex flex-col items-center gap-2 active:scale-95 transition-transform"
+          >
+            <div className={`p-2 rounded-lg ${action.color}`}>
+              <action.icon className="w-5 h-5" />
+            </div>
+            <span className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">{action.label}</span>
+          </button>
+        ))}
       </div>
 
-      {/* Financial Stats Row */}
-      <div className="space-y-4">
-      {/* Financial Stats Row */}
-      <div className="space-y-3">
-        {/* Total Income Card */}
-        <div className="bg-[#171717] border border-white/5 rounded-[20px] p-4">
-          <div className="flex justify-between items-center mb-3">
-            <div className="flex items-center gap-2.5">
-              <div className="p-1.5 bg-emerald-500/10 rounded-lg">
-                <Wallet className="w-4 h-4 text-emerald-500" />
-              </div>
-              <span className="text-[13px] font-bold text-white">Total Income</span>
-            </div>
-            <div className="bg-white/5 px-2 py-0.5 rounded-md flex items-center gap-1">
-              <span className="text-[9px] font-bold text-gray-400">Monthly</span>
-              <ChevronDown className="w-2.5 h-2.5 text-gray-400" />
-            </div>
-          </div>
-          <div className="flex justify-between items-end">
+      {/* Financial Terminal - High Impact */}
+      <div className="bg-[#121212] border border-white/5 rounded-xl overflow-hidden shadow-2xl">
+        <div className="p-5 border-b border-white/5 bg-gradient-to-r from-[#121212] to-black">
+          <div className="flex justify-between items-center mb-6">
             <div>
-              <h4 className="text-xl font-black text-emerald-500">₹{summary?.monthlyIncome?.toLocaleString('en-IN') || '0'}</h4>
-              <p className="text-[8px] font-bold text-gray-500 uppercase tracking-widest mt-0.5">THIS MONTH'S INCOME</p>
+              <h3 className="text-[11px] font-black text-gray-500 uppercase tracking-[0.2em]">Financial Terminal</h3>
+              <p className="text-[8px] font-bold text-gray-700 uppercase mt-0.5">Real-time Cash Flow</p>
             </div>
-            <div className="flex items-end gap-1 h-10">
-              {summary?.monthlyTrends?.map((t: any, i: number) => (
-                <div 
-                  key={i} 
-                  className={`w-1.5 rounded-t-[1px] transition-all duration-500 ${i === 5 ? 'bg-emerald-500' : 'bg-emerald-500/20'}`}
-                  style={{ height: `${(t.income / (summary.monthlyIncome || 1)) * 100}%`, minHeight: '3px' }}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Total Expenses Card */}
-        <div className="bg-[#171717] border border-white/5 rounded-[20px] p-4">
-          <div className="flex justify-between items-center mb-3">
-            <div className="flex items-center gap-2.5">
-              <div className="p-1.5 bg-red-500/10 rounded-lg">
-                <Receipt className="w-4 h-4 text-red-500" />
+            <div className="flex gap-1">
+              <div className="flex items-center gap-1.5 px-2 py-1 bg-emerald-500/10 rounded-lg">
+                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="text-[9px] font-black text-emerald-500 uppercase">Live</span>
               </div>
-              <span className="text-[13px] font-bold text-white">Total Expenses</span>
-            </div>
-            <div className="bg-white/5 px-2 py-0.5 rounded-md flex items-center gap-1">
-              <span className="text-[9px] font-bold text-gray-400">Monthly</span>
-              <ChevronDown className="w-2.5 h-2.5 text-gray-400" />
             </div>
           </div>
-          <div className="flex justify-between items-end">
-            <div>
-              <h4 className="text-xl font-black text-red-500">₹{summary?.monthlyExpenses?.toLocaleString('en-IN') || '0'}</h4>
-              <p className="text-[8px] font-bold text-gray-500 uppercase tracking-widest mt-0.5">THIS MONTH'S EXPENSES</p>
-            </div>
-            <div className="flex items-end gap-1 h-10">
-              {summary?.monthlyTrends?.map((t: any, i: number) => (
-                <div 
-                  key={i} 
-                  className={`w-1.5 rounded-t-[1px] transition-all duration-500 ${i === 5 ? 'bg-red-500' : 'bg-red-500/20'}`}
-                  style={{ height: `${(t.expense / (summary.monthlyExpenses || 1)) * 100}%`, minHeight: '3px' }}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-      </div>
 
-      {/* Financial Trends Lollipop Chart */}
-      <div className="space-y-4">
-        <div className="flex justify-between items-center">
-          <h3 className="text-[11px] font-black text-white uppercase tracking-[0.2em] opacity-60">FINANCIAL TRENDS</h3>
-          <button className="text-[10px] font-black text-gym-yellow uppercase tracking-widest">FULL REPORT</button>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2 text-emerald-500">
+                <TrendingUp className="w-3 h-3" />
+                <span className="text-[10px] font-black uppercase tracking-widest">Revenue</span>
+              </div>
+              <h2 className="text-2xl font-black text-white tabular-nums">₹{summary?.monthlyIncome?.toLocaleString() || '0'}</h2>
+            </div>
+            <div className="space-y-1 text-right">
+              <div className="flex items-center gap-2 text-orange-500 justify-end">
+                <span className="text-[10px] font-black uppercase tracking-widest">Burn Rate</span>
+                <TrendingUp className="w-3 h-3 rotate-90" />
+              </div>
+              <h2 className="text-2xl font-black text-white tabular-nums">₹{summary?.monthlyExpenses?.toLocaleString() || '0'}</h2>
+            </div>
+          </div>
         </div>
-        <div className="bg-[#171717] border border-white/5 rounded-[24px] p-6">
-          <div className="h-[160px] flex items-end justify-between px-2">
-            {summary?.monthlyTrends?.map((trend: any) => {
+
+        {/* Unified Chart */}
+        <div className="p-5 bg-black/40">
+          <div className="h-28 flex items-end justify-between gap-2.5 px-1">
+            {summary?.monthlyTrends?.map((trend: any, i: number) => {
               const maxVal = Math.max(...summary.monthlyTrends.map((t: any) => Math.max(t.income, t.expense))) || 1;
+              const isCurrent = i === (summary.monthlyTrends?.length || 0) - 1;
+              
               return (
-                <div key={trend.month} className="flex flex-col items-center gap-3 flex-1">
-                  <div className="relative h-full w-full flex items-end justify-center gap-2">
-                    {/* Income Lollipop */}
-                    <div className="relative group w-[3px] rounded-t-full bg-gym-yellow/30" style={{ height: `${(trend.income / maxVal) * 100}%` }}>
-                      <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-gym-yellow border-2 border-[#171717]" />
-                    </div>
-                    {/* Expense Lollipop */}
-                    <div className="relative group w-[3px] rounded-t-full bg-red-500/30" style={{ height: `${(trend.expense / maxVal) * 100}%` }}>
-                      <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-red-500 border-2 border-[#171717]" />
-                    </div>
+                <div key={i} className="flex-1 flex flex-col items-center gap-3 group h-full">
+                  <div className="relative flex-1 w-full flex items-end justify-center gap-1">
+                    <div className="absolute inset-0 bg-white/[0.02] rounded-full" />
+                    <motion.div 
+                      initial={{ height: 0 }}
+                      animate={{ height: `${(trend.income / maxVal) * 100}%` }}
+                      className={`w-1.5 rounded-t-full transition-all duration-500 ${isCurrent ? 'bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.3)]' : 'bg-emerald-500/20'}`}
+                    />
+                    <motion.div 
+                      initial={{ height: 0 }}
+                      animate={{ height: `${(trend.expense / maxVal) * 100}%` }}
+                      className={`w-1.5 rounded-t-full transition-all duration-500 ${isCurrent ? 'bg-orange-500 shadow-[0_0_10px_rgba(249,115,22,0.3)]' : 'bg-orange-500/20'}`}
+                    />
                   </div>
-                  <span className="text-[9px] font-bold text-gray-500 uppercase">{trend.month}</span>
+                  <span className={`text-[9px] font-black uppercase tracking-widest ${isCurrent ? 'text-white' : 'text-gray-700'}`}>
+                    {trend.month.substring(0, 3)}
+                  </span>
                 </div>
               );
             })}
           </div>
-          <div className="flex justify-center gap-6 mt-8">
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-sm bg-gym-yellow" />
-              <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest">INCOME</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-sm bg-red-500" />
-              <span className="text-[9px] font-black text-gray-400 uppercase tracking-widest">EXPENSE</span>
-            </div>
-          </div>
+        </div>
+      </div>
+
+      {/* Mini Trend Chart */}
+      <div className="bg-[#171717] border border-white/5 rounded-xl p-4">
+        <div className="flex justify-between items-center mb-4">
+          <h3 className="text-[11px] font-black text-gray-500 uppercase tracking-widest">Growth Analytics</h3>
+          <TrendingUp className="w-3.5 h-3.5 text-gym-yellow" />
+        </div>
+        <div className="h-[80px] flex items-end justify-between gap-1 px-1">
+          {summary?.monthlyTrends?.map((trend: any) => {
+            const maxVal = Math.max(...summary.monthlyTrends.map((t: any) => Math.max(t.income, t.expense))) || 1;
+            return (
+              <div key={trend.month} className="flex-1 flex flex-col items-center gap-2">
+                <div className="relative h-full w-full flex items-end justify-center gap-0.5">
+                  <div className="w-[3px] rounded-t-full bg-gym-yellow" style={{ height: `${(trend.income / maxVal) * 100}%` }} />
+                  <div className="w-[3px] rounded-t-full bg-orange-500" style={{ height: `${(trend.expense / maxVal) * 100}%` }} />
+                </div>
+                <span className="text-[8px] font-bold text-gray-700 uppercase">{trend.month.substring(0, 3)}</span>
+              </div>
+            );
+          })}
         </div>
       </div>
 

@@ -31,7 +31,7 @@
 /* Base typography refinements */
 @layer base {
   html {
-    @apply text-[15px]; /* Balanced base font for mobile-app feel */
+    @apply text-[16px]; /* Balanced base font for mobile-app feel */
   }
 }
 

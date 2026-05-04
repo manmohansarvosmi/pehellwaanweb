@@ -123,6 +123,27 @@ export const updateMember = (id: string | number, memberData: any) => {
 
 export const getMemberById = (id: string | number) => apiRequest(`/members/getMemberById/${id}`);
 
+export const getMemberHubDetails = (id: string | number) => apiRequest(`/members/getMemberHubDetails/${id}`);
+
+export const renewMembership = (id: string | number, renewData: any) => 
+    apiRequest(`/members/renew/${id}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(renewData),
+    });
+
+export const sendReminder = (id: string | number) => 
+    apiRequest(`/members/sendReminder/${id}`, { method: 'POST' });
+
+export const updateMemberPhoto = (memberId: string | number, photo: File) => {
+    const formData = new FormData();
+    formData.append('photo', photo);
+    return apiRequest(`/members/updateProfilePhoto/${memberId}`, {
+        method: 'POST',
+        body: formData,
+    });
+};
+
 /** STAFF API **/
 export const getAllStaff = () => apiRequest('/staff/getAllStaff');
 
@@ -147,10 +168,17 @@ export const getUpcomingExpirations = () => apiRequest('/members/expiringSoon');
 export const getPendingPayments = () => apiRequest('/members/pendingPayments');
 
 /** FINANCE API **/
-export const getFinanceTransactions = (type: 'income' | 'expenses' | 'all' = 'all') => 
-    apiRequest(`/finance/transactions?type=${type}`);
+export const getFinanceTransactions = () => 
+    apiRequest('/finance/getTransactions');
 
-export const getFinanceSummary = () => apiRequest('/finance/summary');
+export const getFinanceSummary = () => apiRequest('/finance/getSummary');
+
+export const addExpense = (expenseData: any) => 
+    apiRequest('/finance/addExpense', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(expenseData),
+    });
 
 /** ATTENDANCE API **/
 export const getAttendance = (date?: string) => {
@@ -167,4 +195,21 @@ export const markAttendance = (memberId: string | number, status: 'IN' | 'OUT') 
 };
 
 /** PACKAGES API **/
-export const getAllPackages = () => apiRequest('/packages/getAllPackages');
+export const getAllPackages = () => apiRequest('/packages/getAll');
+
+export const createPackage = (packageData: any) => 
+    apiRequest('/packages/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(packageData),
+    });
+
+export const updatePackage = (id: string | number, packageData: any) => 
+    apiRequest(`/packages/update/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(packageData),
+    });
+
+export const deletePackage = (id: string | number) => 
+    apiRequest(`/packages/delete/${id}`, { method: 'DELETE' });

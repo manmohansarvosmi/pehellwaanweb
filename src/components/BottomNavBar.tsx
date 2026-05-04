@@ -14,7 +14,7 @@ interface BottomNavBarProps {
 
 export default function BottomNavBar({ activeTab, onTabChange }: BottomNavBarProps) {
   const tabs = [
-    { id: 'dashboard', label: 'Home', icon: LayoutDashboard },
+    { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'members', label: 'Members', icon: Users },
     { id: 'add-member', label: '', icon: Plus, isCenter: true },
     { id: 'attendance', label: 'Attendance', icon: CalendarCheck },
@@ -52,7 +52,7 @@ export default function BottomNavBar({ activeTab, onTabChange }: BottomNavBarPro
               }`}
             >
               <Icon className={`w-6 h-6 transition-transform ${isActive ? 'scale-110' : ''}`} />
-              <span className={`text-[10px] font-black uppercase tracking-widest ${isActive ? 'opacity-100' : 'opacity-60'}`}>
+              <span className={`text-[11px] font-black uppercase tracking-widest ${isActive ? 'opacity-100' : 'opacity-60'}`}>
                 {tab.label}
               </span>
               {isActive && (
